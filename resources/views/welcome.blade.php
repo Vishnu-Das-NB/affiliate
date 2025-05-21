@@ -156,7 +156,7 @@
             </div>
 
             <!-- Search Box -->
-            <div class="row justify-content-center mb-4">
+            <div id="search-bar-wrapper" class="row justify-content-center mb-4">
                 <div class="col-md-8">
                     <form action="{{ route('home') }}" method="GET">
                         <div class="input-group">
@@ -187,9 +187,24 @@
             </div>
         </div>
         <!-- Footer -->
-        <footer class="text-center py-4 mt-4 text-muted">
+        <footer class="text-center py-4 mt-4 mb-8 text-muted">
             <p class="mb-0">&copy; {{ date('Y') }} SimpleGhar Malayalam. All rights reserved.</p>
         </footer>
+        <div id="fixed-search-bar"
+            style="display:none; position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; padding: 10px 0; box-shadow: 0 -2px 8px rgba(0,0,0,0.15); z-index: 1050;">
+            <div class="container">
+                <form action="{{ route('home') }}" method="GET" id="fixed-search-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search products..."
+                            id="fixed-search-box"
+                            @if (request('search')) value="{{ request('search') }}" @endif name="search">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -227,7 +242,6 @@
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
                     const newProducts = doc.body.childNodes;
-                    console.log(newProducts);
                     newProducts.forEach(node => {
                         container.appendChild(node);
                     });
@@ -259,6 +273,48 @@
             });
 
             observer.observe(sentinel);
+
+            const searchBarWrapper = document.getElementById('search-bar-wrapper');
+            const fixedSearchBar = document.getElementById('fixed-search-bar');
+            const mainSearchBox = document.getElementById('search-box');
+            const fixedSearchBox = document.getElementById('fixed-search-box');
+            const mainSearchForm = document.getElementById('search-form');
+            const fixedSearchForm = document.getElementById('fixed-search-form');
+
+            // Copy initial value
+            fixedSearchBox.value = mainSearchBox.value;
+
+            // Sync inputs on typing
+            mainSearchBox.addEventListener('input', () => {
+                fixedSearchBox.value = mainSearchBox.value;
+            });
+            fixedSearchBox.addEventListener('input', () => {
+                mainSearchBox.value = fixedSearchBox.value;
+            });
+
+            // Sync form submission so both work the same
+            fixedSearchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                mainSearchForm.search.value = fixedSearchBox.value;
+                mainSearchForm.submit();
+            });
+
+            // Function to check if original search bar is visible
+            function toggleFixedSearchBar() {
+                const rect = searchBarWrapper.getBoundingClientRect();
+                if (rect.bottom < 0) {
+                    fixedSearchBar.style.display = 'block';
+                } else {
+                    fixedSearchBar.style.display = 'none';
+                }
+            }
+
+            // Initial check
+            toggleFixedSearchBar();
+
+            // Listen for scroll events
+            window.addEventListener('scroll', toggleFixedSearchBar);
+            window.addEventListener('resize', toggleFixedSearchBar);
         });
     </script>
 

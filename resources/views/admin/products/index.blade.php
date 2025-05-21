@@ -7,6 +7,13 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Manage Products</h4>
+                        <form action="{{ route('admin.products.import') }}" method="POST" enctype="multipart/form-data"
+                            class="d-flex align-items-center">
+                            @csrf
+                            <input type="file" name="file" class="form-control me-2" accept=".xlsx,.xls" required
+                                style="max-width: 300px;">
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </form>
                         <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Add New Product</a>
                     </div>
                     <div class="card-body">

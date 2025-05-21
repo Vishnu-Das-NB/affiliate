@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductsImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -256,5 +258,16 @@ class ProductController extends Controller
         }
 
         return view('welcome', compact('products'));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new ProductsImport, $request->file('file'));
+
+        return back()->with('success', 'Products imported successfully!');
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_dod')->default(false);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->default(1)->constrained()->onDelete('cascade');
         });
     }
 

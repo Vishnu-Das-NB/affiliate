@@ -20,4 +20,5 @@ Route::get('/admin', function () {
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', ProductController::class)->except(['show']);
     Route::post('/products/{product}/toggle-dod', [ProductController::class, 'toggleDealOfDay'])->name('products.toggle-dod');
+    Route::post('/products/import', [ProductController::class, 'import'])->name('products.import');
 });

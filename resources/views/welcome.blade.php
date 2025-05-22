@@ -146,7 +146,6 @@
                     <img src="{{ asset('images/logo.svg') }}" alt="SimpleGhar Logo" width="60" height="60">
                 </a>
                 <h4 class="mt-2">SimpleGhar Malayalam</h4>
-                <p class="text-muted">@simplegharMalayalam</p>
             </div>
 
             <!-- Price Tracking Tool Banner -->
@@ -160,7 +159,8 @@
                 <div class="col-md-8">
                     <form action="{{ route('home') }}" method="GET">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search products..." id="search-box"
+                            <input type="text" class="form-control typewriter-search"
+                                placeholder="Search products..." id="search-box"
                                 @if (request('search')) value="{{ request('search') }}" @endif name="search">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i>
@@ -195,7 +195,7 @@
             <div class="container">
                 <form action="{{ route('home') }}" method="GET" id="fixed-search-form">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search products..."
+                        <input type="text" class="form-control typewriter-search" placeholder="Search products..."
                             id="fixed-search-box"
                             @if (request('search')) value="{{ request('search') }}" @endif name="search">
                         <button class="btn btn-primary" type="submit">
@@ -292,13 +292,6 @@
                 mainSearchBox.value = fixedSearchBox.value;
             });
 
-            // Sync form submission so both work the same
-            fixedSearchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                mainSearchForm.search.value = fixedSearchBox.value;
-                mainSearchForm.submit();
-            });
-
             // Function to check if original search bar is visible
             function toggleFixedSearchBar() {
                 const rect = searchBarWrapper.getBoundingClientRect();
@@ -315,6 +308,42 @@
             // Listen for scroll events
             window.addEventListener('scroll', toggleFixedSearchBar);
             window.addEventListener('resize', toggleFixedSearchBar);
+            const inputs = document.querySelectorAll(".typewriter-search");
+
+            const words = ["headphones", "smartphones", "laptops", "gaming mouse", "keyboards", "wireless earbuds",
+                "smartwatches"
+            ];
+            const typingSpeed = 100; // milliseconds per character
+            const pauseBetweenWords = 2000; // pause before deleting
+
+            inputs.forEach((input) => {
+                if (input.value) return; // skip if already has user input
+
+                let wordIndex = Math.floor(Math.random() * words.length);
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function typeEffect() {
+                    const currentWord = words[wordIndex];
+                    if (isDeleting) {
+                        input.setAttribute("placeholder", currentWord.substring(0, charIndex--));
+                        if (charIndex < 0) {
+                            isDeleting = false;
+                            wordIndex = Math.floor(Math.random() * words.length);
+                        }
+                    } else {
+                        input.setAttribute("placeholder", currentWord.substring(0, charIndex++));
+                        if (charIndex > currentWord.length) {
+                            isDeleting = true;
+                            setTimeout(typeEffect, pauseBetweenWords);
+                            return;
+                        }
+                    }
+                    setTimeout(typeEffect, typingSpeed);
+                }
+
+                typeEffect();
+            });
         });
     </script>
 

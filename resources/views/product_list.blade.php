@@ -13,9 +13,9 @@
                             <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-image">
                         @endif
                     @else
-                        <img src="{{ asset('images/no-image.png') }}" alt="No Image" class="product-image">
+                        <img src="{{ asset('assets/img/no-image.jpg') }}" alt="No Image" class="product-image">
                     @endif
-                    <div class="product-title">{{ $product->name }}</div>
+                    {{-- <div class="product-title">{{ $product->name }}</div> --}}
                 </div>
             </a>
         </div>

@@ -32,9 +32,6 @@ class ProductController extends Controller
             $query->where('is_dod', $request->filter_dod);
         }
 
-        // Order by latest
-        $query->latest();
-
         // Paginate the results (adjust per page as needed)
         $products = $query->paginate(10);
 
@@ -82,7 +79,7 @@ class ProductController extends Controller
         $page = $request->input('page', 1);
         $perPage = 9; // Number of products per page
 
-        $products = Product::latest()->paginate($perPage, ['*'], 'page', $page);
+        $products = Product::paginate($perPage, ['*'], 'page', $page);
 
         return response()->json([
             'products' => $products->items(),
@@ -245,9 +242,6 @@ class ProductController extends Controller
         if ($request->has('filter_dod') && $request->filter_dod && $request->filter_dod !== '') {
             $query->where('is_dod', $request->filter_dod);
         }
-
-        // Order by latest
-        $query->latest();
 
         // Paginate the results (adjust per page as needed)
         $products = $query->paginate(12);

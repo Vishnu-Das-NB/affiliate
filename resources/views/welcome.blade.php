@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SimpleGhar') }}</title>
+    <title>{{ config('app.name', 'Buylok') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    
+
+
 
 
     <!-- Scripts -->
@@ -19,6 +23,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/x-icon">
 
     <!-- Custom Styles -->
     <style>
@@ -29,13 +34,9 @@
 
         .card {
             border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
             overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
         }
 
         .card-footer {
@@ -70,14 +71,12 @@
         }
 
         .product-card {
-            margin-bottom: 25px;
             border: none;
             transition: transform 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .product-image-container {
@@ -96,14 +95,12 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Maintains aspect ratio within square */
-            padding: 10px;
         }
 
         .product-id {
             position: absolute;
-            top: 3px;
-            left: 0px;
+            top: 9px;
+            left: 9px;
             font-weight: bold;
             padding: 3px 10px;
             border-radius: 4px;
@@ -126,6 +123,31 @@
             font-size: 18px;
         }
 
+        .follow {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400; /* Regular */
+      font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #000000;
+        }
+        .social-icon {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .typewriter-search {
+            background: #f5f5f5;
+            border: 1px solid #9d9d9d;
+        }
+        
+        .typewriter-search::placeholder {
+          color: #9d9d9d; /* or any light color like #e0e0e0, #fafafa */
+          opacity: 1;   /* Ensures consistency across browsers */
+          font-family: 'Poppins', sans-serif;
+          text-transform: capitalize;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 767px) {
             .product-title {
@@ -139,30 +161,48 @@
 <body>
     <div id="app">
         <!-- Main Content -->
-        <div class="container py-4">
-            <!-- Header with Logo -->
-            <div class="text-center mb-4">
-                <a href="{{ route('home') }}">
-                    <img src="{{ asset('images/logo.svg') }}" alt="SimpleGhar Logo" width="60" height="60">
-                </a>
-                <h4 class="mt-2">SimpleGhar Malayalam</h4>
+        <div class="container-fluid pb-2">
+            <div class="row align-items-center mb-4">
+                <!-- Logo Placeholder -->
+                <div class="col-lg-8 p-3 my-3 px-xl-5">
+                    <div class="w-50 m-auto text-center text-xl-start">
+                        <a href="{{route('home')}}">
+                            <img src="{{ asset('assets/img/logo.svg') }}" alt="logo" class="img-fluid" height="97px" width="270px">
+                        </a>
+                    </div>
+                </div>
+                <!-- Social Icons -->
+                <div class="col-lg-2 text-center">
+                    <h4 class="follow">Follow Us & Subscribe</h4>
+                    <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+                        <a href="#" class="social-icon bg-dark text-white rounded-circle d-flex align-items-center justify-content-center text-decoration-none fs-4">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-dark text-white rounded-circle d-flex align-items-center justify-content-center text-decoration-none fs-4">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-dark text-white rounded-circle d-flex align-items-center justify-content-center text-decoration-none fs-4">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-dark text-white rounded-circle d-flex align-items-center justify-content-center text-decoration-none fs-4">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                </div>
             </div>
-
-            <!-- Price Tracking Tool Banner -->
-            <div class="bg-info bg-opacity-25 text-center p-3 mb-4 rounded">
-                <p class="mb-1">Try Our New Price Tracking Tool & Save On Your Amazon Purchase.</p>
-                <a href="{{ route('price-tracker') }}" class="btn btn-sm btn-primary">Try Now ></a>
-            </div>
-
+        </div>
+        <div class="container-fluid py-4">
             <!-- Search Box -->
             <div id="search-bar-wrapper" class="row justify-content-center mb-4">
                 <div class="col-md-8">
                     <form action="{{ route('home') }}" method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control typewriter-search"
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control typewriter-search rounded-start-1"
                                 placeholder="Search products..." id="search-box"
                                 @if (request('search')) value="{{ request('search') }}" @endif name="search">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-dark rounded-end-1" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -186,25 +226,36 @@
 
             </div>
         </div>
-        <!-- Footer -->
-        <footer class="text-center py-4 mt-4 mb-8 text-muted">
-            <p class="mb-0">&copy; {{ date('Y') }} SimpleGhar Malayalam. All rights reserved.</p>
-        </footer>
         <div id="fixed-search-bar"
             style="display:none; position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; padding: 10px 0; box-shadow: 0 -2px 8px rgba(0,0,0,0.15); z-index: 1050;">
             <div class="container">
                 <form action="{{ route('home') }}" method="GET" id="fixed-search-form">
-                    <div class="input-group">
-                        <input type="text" class="form-control typewriter-search" placeholder="Search products..."
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control typewriter-search rounded-start-1" placeholder="Search products..."
                             id="fixed-search-box"
                             @if (request('search')) value="{{ request('search') }}" @endif name="search">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-dark rounded-end-1" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </form>
             </div>
         </div>
+        <!-- Footer -->
+        <footer class="text-center py-4 mt-4 text-muted">
+            <p>The products listed on this page contain affiliate links. When you purchase any product, Buylok may earn
+                a commission.
+                If any query contact to <a href="mailto:contact@buylok.com">contact@buylok.com</a> </p>
+            <p class="mb-0">&copy; {{ date('Y') }} Buylok. All rights reserved.</p>
+        </footer>
+        <section>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>

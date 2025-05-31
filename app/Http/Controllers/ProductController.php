@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Imports\ProductsImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -104,14 +106,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'affiliate_link' => 'nullable|url|max:2048',
-        ]);
+        $validated = $request->all();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -158,15 +155,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'affiliate_link' => 'nullable|url|max:2048',
-        ]);
-
+        $validated = $request->all();
         if ($request->hasFile('image')) {
             // Delete the old image
             if ($product->image && Storage::disk('public')->exists(str_replace('storage/', '', $product->image))) {

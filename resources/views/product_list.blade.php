@@ -1,5 +1,5 @@
 @foreach ($products as $product)
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 col-6 p-1 mb-0">
         <div class="card product-card">
             <a href="{{ $product->affiliate_link }}" class="text-decoration-none" target="_blank">
                 <div class="product-image-container">

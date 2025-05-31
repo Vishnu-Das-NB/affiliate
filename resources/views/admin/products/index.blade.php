@@ -92,9 +92,8 @@
                                             </td>
                                             <td>{{ $product->created_at }}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
                                                     <a href="{{ route('admin.products.edit', $product->id) }}"
-                                                        class="btn btn-sm btn-primary">
+                                                        class="btn btn-sm btn-primary me-1">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <form action="{{ route('admin.products.destroy', $product->id) }}"
@@ -106,7 +105,6 @@
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>
-                                                </div>
                                             </td>
                                         </tr>
                                     @empty

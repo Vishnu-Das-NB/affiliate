@@ -4,7 +4,10 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Auth::routes();
+
+Auth::routes([
+    'register' => false, // disable registration
+]);
 
 // Public routes
 Route::get('/', [ProductController::class, 'dashboard'])->name('home');

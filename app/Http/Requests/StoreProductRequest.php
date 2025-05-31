@@ -24,9 +24,8 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'affiliate_link' => 'required|url',
-            'is_dod' => 'boolean',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'affiliate_link' => 'required|url|max:2048',
         ];
     }
 }

@@ -29,6 +29,13 @@
                                     value="{{ old('name') }}" required>
                             </div>
 
+
+                            <div class="mb-4">
+                                <label for="name" class="form-label">Product Shown At</label>
+                                <input type="number" class="form-control" id="show_at_pos" name="show_at_pos"
+                                    value="{{ old('show_at_pos', 10000) }}" required>
+                            </div>
+
                             <div class="mb-4">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description" rows="4">{{ old('description') }}</textarea>

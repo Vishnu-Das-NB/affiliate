@@ -26,6 +26,8 @@ class StoreProductRequest extends FormRequest
             'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'affiliate_link' => 'required|url|max:2048',
+            'show_at_pos' => 'sometimes|integer|min:1|max:1000',
+
         ];
     }
 }

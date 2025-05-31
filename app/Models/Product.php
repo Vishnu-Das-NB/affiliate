@@ -19,6 +19,7 @@ class Product extends Model
         'description',
         'image',
         'affiliate_link',
+        'show_at_pos',
         'is_dod',
         'user_id'
     ];

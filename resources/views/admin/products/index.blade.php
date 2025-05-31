@@ -56,6 +56,7 @@
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Deal of Day</th>
+                                        <th>Product Position</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
@@ -90,21 +91,22 @@
                                                     </button>
                                                 </form>
                                             </td>
+                                            <td>{{ $product->show_at_pos }}</td>
                                             <td>{{ $product->created_at }}</td>
                                             <td>
-                                                    <a href="{{ route('admin.products.edit', $product->id) }}"
-                                                        class="btn btn-sm btn-primary me-1">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('admin.products.destroy', $product->id) }}"
-                                                        method="POST" class="d-inline"
-                                                        onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </form>
+                                                <a href="{{ route('admin.products.edit', $product->id) }}"
+                                                    class="btn btn-sm btn-primary me-1">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                                    method="POST" class="d-inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @empty

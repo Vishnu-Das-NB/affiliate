@@ -33,7 +33,7 @@ class ProductController extends Controller
         if ($request->has('filter_dod') && $request->filter_dod && $request->filter_dod !== '') {
             $query->where('is_dod', $request->filter_dod);
         }
-
+        $query->orderBy('show_at_pos')->orderByDesc('id');
         // Paginate the results (adjust per page as needed)
         $products = $query->paginate(10);
 
@@ -233,6 +233,7 @@ class ProductController extends Controller
         if ($request->has('filter_dod') && $request->filter_dod && $request->filter_dod !== '') {
             $query->where('is_dod', $request->filter_dod);
         }
+        $query->orderBy('show_at_pos')->orderByDesc('id');
 
         // Paginate the results (adjust per page as needed)
         $products = $query->paginate(12);
